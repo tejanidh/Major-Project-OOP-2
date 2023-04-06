@@ -13,7 +13,21 @@ public class Employee {
     private String Name;
     private String City;
     private String Position;
+    
+    public Employee() {
+        ID = 0;
+        Name = "";
+        City = "";
+        Position  = "";
+    }
 
+    public Employee(int ID, String Name, String City, String Position) {
+        this.setID(ID);
+        this.setName(Name);
+        this.setCity(City);
+        this.setPosition(Position);
+    }
+     
     public int getID() {
         return ID;
     }
