@@ -1,6 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * Group of 2 people :-
+ * 1. Dhruvkumar Tejani - 991677853
+ * 2. Heli Patel - 991678820
+ * Final Project
+ * 9 April 2023
  */
 package employeefx;
 
@@ -11,12 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
 
-/**
- *
- * @author tejan
- */
 public class EmployeeFile {
     public ArrayList<Employee> ReadRecords(String fileName) {
         
@@ -63,8 +61,7 @@ public class EmployeeFile {
         }
         catch (Exception e) {
             ShowError.show("Error",  e.getMessage().toString());
-            temp = false;
-                    
+            temp = false;             
         }
         return temp;
     }
@@ -80,11 +77,10 @@ public class EmployeeFile {
             FileWriter fw = new FileWriter(file);
             BufferedWriter bWriter = new BufferedWriter(fw);
             
-                bWriter.write(emp.getID() + ", " + emp.getName() + ", " + emp.getCity() + ", " + emp.getPosition());
-                bWriter.flush();
-                bWriter.newLine();
-                bWriter.flush();
-
+            bWriter.write(emp.getID() + ", " + emp.getName() + ", " + emp.getCity() + ", " + emp.getPosition());
+            bWriter.flush();
+            bWriter.newLine();
+            bWriter.flush();
             bWriter.close();
             fw.close();
         }

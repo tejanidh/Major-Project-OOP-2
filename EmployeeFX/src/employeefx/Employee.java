@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * Group of 2 people :-
+ * 1. Dhruvkumar Tejani - 991677853
+ * 2. Heli Patel - 991678820
+ * Final Project
+ * 9 April 2023
  */
 package employeefx;
 
-/**
- *
- * @author tejan
- */
 public class Employee {
     private int ID;
     private String Name;
