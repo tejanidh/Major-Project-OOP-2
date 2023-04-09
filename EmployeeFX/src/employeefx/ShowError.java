@@ -7,6 +7,7 @@
  */
 package employeefx;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -41,9 +42,11 @@ public class ShowError {
         alert.setTitle(title);
         alert.setContentText(msg);
         if(purpose == "Confirmation") {
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.YES) {
+             var buttonResult = alert.showAndWait();
+//            System.out.println(x.get().OK);
+            if (buttonResult.get().OK == ButtonType.OK) {
                 isDone = true;
+//                System.out.println(x);
             }
             else if (alert.getResult() == ButtonType.NO) {
                 isDone = false;

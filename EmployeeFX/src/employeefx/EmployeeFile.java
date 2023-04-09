@@ -16,13 +16,14 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class EmployeeFile {
-    public ArrayList<Employee> ReadRecords(String fileName) {
+    public static ArrayList<Employee> ReadRecords(String fileName) {
         
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
         
         FileReader fileReader;
         BufferedReader bufferedReader;
         try {
+//            System.out.println(fileName);
             File file = new File(fileName);
             if(!file.exists()){
                 file.createNewFile();
@@ -32,10 +33,14 @@ public class EmployeeFile {
             bufferedReader = new BufferedReader(fileReader);
             if(bufferedReader.ready()) {
                 String Line = bufferedReader.readLine();
-                while(!(Line.isBlank() || Line.isEmpty())) {
+                
+//                System.out.println(Line);
+                while( Line != "" && Line != null) {
+                    
                     String[] ConvertedLine = Line.split(",");
-                    Employee employee = new Employee(Integer.parseInt(ConvertedLine[0]),ConvertedLine[1],ConvertedLine[2],ConvertedLine[3]);
+                    Employee employee = new Employee(Integer.parseInt(ConvertedLine[0].trim()),ConvertedLine[1].trim(),ConvertedLine[2].trim(),ConvertedLine[3].trim());
                     employeeList.add(employee);
+                    Line = bufferedReader.readLine();
                 }
             }
             else {
@@ -50,13 +55,14 @@ public class EmployeeFile {
             ShowError.show("Error", "File Not Found. Please try again by giving another file name\n" + e.getMessage().toString());
         } finally {
         }
+        System.out.println(employeeList);
         return employeeList;
     }
-    public boolean WriteRecords(String fileName,ArrayList<Employee> emp) {
+    public static boolean WriteRecords(String fileName,ArrayList<Employee> emp,boolean isAppend) {
         boolean temp = true;
         try {
            for(int i = 0; i < emp.size(); i++ ) {
-                WriteRecord(fileName, emp.get(i));
+                WriteRecord(fileName, emp.get(i), i == 0 ? isAppend : true);
             }           
         }
         catch (Exception e) {
@@ -66,15 +72,16 @@ public class EmployeeFile {
         return temp;
     }
     
-    public boolean WriteRecord(String fileName,Employee emp) {
+    public static boolean WriteRecord(String fileName,Employee emp,boolean isAppend) {
         boolean temp = true;
         try {
+            
             File file = new File(fileName);
             if(!file.exists()){
                 file.createNewFile();
                 throw new FileNotFoundException("Given file name not found at path.");
             }
-            FileWriter fw = new FileWriter(file);
+            FileWriter fw = new FileWriter(file,isAppend);
             BufferedWriter bWriter = new BufferedWriter(fw);
             
             bWriter.write(emp.getID() + ", " + emp.getName() + ", " + emp.getCity() + ", " + emp.getPosition());
@@ -100,7 +107,7 @@ public class EmployeeFile {
         return temp;
     }
     
-    public boolean UpdateRecord(String fileName,Employee employee) {
+    public static boolean UpdateRecord(String fileName,Employee employee) {
         boolean isDone = false;
         ArrayList<Employee> employeeList = ReadRecords(fileName);
 
@@ -111,25 +118,33 @@ public class EmployeeFile {
                     isDone = true;
                 }
             }
+            System.out.println(employeeList.size());
+            if(!isDone){ 
+                ShowError.show("Update Record Error", "Record Not Found.");
+            }
+            else {
+               boolean isApproved = ShowError.show("Update Record Permission", "Do want to update this record?","Confirmation");
+                System.out.println("isApproved " + isApproved);
+                if(isApproved) {
+                    System.out.println(employeeList);
+                    if(WriteRecords(fileName, employeeList,false)){
+                        ShowError.show("Update Success", "Record Updated Successfully.","Information");
+                    }
+
+                }
+                else {
+                    ShowError.show("Error", "Not approved for updation.");
+                }
+            }
         } catch (Exception e) {
             ShowError.show("Update Record Error", e.getMessage().toString());
         }
         
-        if(!isDone){ 
-            ShowError.show("Update Record Error", "Record Not Found.");
-        }
-        else {
-           boolean isApproved = ShowError.show("Update Record Permission", "Do want to update this record?","Confirmation");
-            if(isApproved) {
-                WriteRecords(fileName, employeeList);
-                ShowError.show("Update Success", "Record Updated Successfully.","Information");
-
-            }
-        }
+        
         return isDone;
     }
     
-    public boolean DeleteRecord(String fileName,Employee employee) {
+    public static boolean DeleteRecord(String fileName,Employee employee) {
         boolean isDone = false;
         ArrayList<Employee> employeeList = ReadRecords(fileName);
 
@@ -150,7 +165,7 @@ public class EmployeeFile {
         else {
             boolean isApproved = ShowError.show("Delete Record Permission", "Do you want to delete record?","Confirmation");
             if(isApproved) {
-                WriteRecords(fileName, employeeList);
+                WriteRecords(fileName, employeeList,false);
                 ShowError.show("Delete Success", "Record Deleted Successfully.","Information");
             }
         }
