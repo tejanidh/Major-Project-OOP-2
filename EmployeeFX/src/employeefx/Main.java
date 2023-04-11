@@ -13,15 +13,21 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Main extends Application{
@@ -31,10 +37,10 @@ public class Main extends Application{
     private TextField nameTxt = new TextField();
     private TextField cityTxt = new TextField();
     private TextField positionTxt = new TextField();
-    private Label lblID = new Label("ID: ");
-    private Label lblName = new Label("Name: ");
-    private Label lblCity = new Label("City: ");
-    private Label lblPosition = new Label("Position: ");
+    private Label lblID = new Label("Employee ID: ");
+    private Label lblName = new Label("Employee Name: ");
+    private Label lblCity = new Label("Employee City: ");
+    private Label lblPosition = new Label("Employee Position: ");
     private Button firstBtn = new Button("FIRST");
     private Button nextBtn = new Button("NEXT");
     private Button previousBtn = new Button("PREVIOUS");
@@ -61,36 +67,111 @@ public class Main extends Application{
     
     private HBox pagingBox = new HBox(firstBtn,previousBtn,nextBtn,lastBtn);
     private HBox ActivityBox = new HBox(addBtn,updateBtn,deleteBtn,searchBtn);
+    
+    private VBox finalInputVBox = new VBox(mainLabel,firstHBox,secondHBox,ActivityBox,pagingBox);
     private Pane pane = new Pane();
     private Scene scene;
     
     public Pane getFullDesign() {
         Pane pane = new Pane();
         pane.getChildren().add(mainLabel);
-        mainLabel.setLayoutX(60);
+        mainLabel.setLayoutX(150);
+        mainLabel.setTextFill(Color.CHOCOLATE);
         mainLabel.setLayoutY(30);
-        mainLabel.setFont(new Font(35));
-        pane.getChildren().add(firstHBox);  
-        firstHBox.setLayoutX(30);
-        firstHBox.setLayoutY(80);
-        pane.getChildren().add(secondHBox);
-        secondHBox.setLayoutX(30);
-        secondHBox.setLayoutY(120);
-        pane.getChildren().add(ActivityBox);
-        ActivityBox.setLayoutX(30);
-        ActivityBox.setLayoutY(190);
-        pane.getChildren().add(pagingBox);
-        pagingBox.setLayoutX(30);
-        pagingBox.setLayoutY(240);
+        mainLabel.setFont(Font.font("Serif", FontWeight.BOLD, FontPosture.REGULAR, 35));
+//        mainLabel.setMinWidth(300);
+        mainLabel.setAlignment(Pos.CENTER);
+//        pane.getChildren().add(firstHBox); 
+        finalInputVBox.setLayoutY(80);
+        finalInputVBox.setLayoutX(30);
+        finalInputVBox.setSpacing(20);
+        pane.getChildren().add(finalInputVBox);
+//        firstHBox.setLayoutY(80);
+//        pane.getChildren().add(secondHBox);
+//        secondHBox.setLayoutX(30);
+//        secondHBox.setLayoutY(120);
+//        pane.getChildren().add(ActivityBox);
+//        ActivityBox.setLayoutX(30);
+//        ActivityBox.setLayoutY(190);
+//        pane.getChildren().add(pagingBox);
+//        pagingBox.setLayoutX(30);
+//        pagingBox.setLayoutY(300);
         
-        addBtn.setMinWidth(75);
-        updateBtn.setMinWidth(75);
-        searchBtn.setMinWidth(75);
-        deleteBtn.setMinWidth(75);
-        firstBtn.setMinWidth(75);
-        lastBtn.setMinWidth(75);
-        nextBtn.setMinWidth(75);
-        previousBtn.setMinWidth(75);
+        addBtn.setMinWidth(120);
+        updateBtn.setMinWidth(120);
+        searchBtn.setMinWidth(120);
+        deleteBtn.setMinWidth(120);
+        firstBtn.setMinWidth(120);
+        lastBtn.setMinWidth(120);
+        nextBtn.setMinWidth(120);
+        previousBtn.setMinWidth(120);
+        firstHBox.setSpacing(25);
+        secondHBox.setSpacing(25);
+        pagingBox.setSpacing(20);
+        ActivityBox.setSpacing(20);
+        
+        addBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        
+        updateBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        searchBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        deleteBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        firstBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        lastBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        nextBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        previousBtn.setFont(Font.font("Serif", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 16));
+        
+        firstBtn.setStyle("-fx-border-color: gray; -fx-background-color: lightgray; -fx-font-color: gray;");
+        firstBtn.setTextFill(Color.GRAY);
+        lastBtn.setStyle("-fx-border-color: gray; -fx-background-color: lightgray; ");
+        lastBtn.setTextFill(Color.GRAY);
+        nextBtn.setStyle("-fx-border-color: blue; -fx-background-color: skyblue; ");
+        nextBtn.setTextFill(Color.BLUE);
+        previousBtn.setStyle("-fx-border-color: blue; -fx-background-color: skyblue; ");
+        previousBtn.setTextFill(Color.BLUE);
+        addBtn.setStyle("-fx-border-color: green; -fx-background-color: lightgreen;  -fx-font-color: green;");
+        addBtn.setTextFill(Color.GREEN);
+        deleteBtn.setStyle("-fx-border-color: red; -fx-background-color: #f5a19b; ");
+        deleteBtn.setTextFill(Color.RED);
+        updateBtn.setStyle("-fx-border-color: blue; -fx-background-color: lightblue; ");
+        updateBtn.setTextFill(Color.BLUE);
+        
+        searchBtn.setStyle("-fx-border-color: #b7ee33; -fx-background-color: #f3f8e7 ; ");
+        searchBtn.setTextFill(Color.DARKGREEN);
+        
+        
+        lblID.setStyle("-fx-font-size: 14;");
+        lblName.setStyle("-fx-font-size: 14;");
+        lblCity.setStyle("-fx-font-size: 14;");
+        lblPosition.setStyle("-fx-font-size: 14;");
+        
+        idTxt.setMinHeight(25);
+        idTxt.setMinWidth(120); 
+        idTxt.setStyle("-fx-background-color: #f8f8f7; -fx-border-color: gray; -fx-color: gray; -fx-border-radius: 15;");
+        idTxt.setFont(new Font(20));
+        idTxt.setPrefColumnCount(12);
+        idTxt.setPromptText("Enter Id");
+        idTxt.setFocusTraversable(true);
+        
+        nameTxt.setMinHeight(25);
+        nameTxt.setPrefColumnCount(12);
+        nameTxt.setMinWidth(120); 
+        nameTxt.setFont(new Font(20));
+        nameTxt.setStyle("-fx-background-color: #f8f8f7; -fx-border-color: gray; -fx-color: gray; -fx-border-radius: 15;");
+        nameTxt.setPromptText("Enter Name");
+        
+        cityTxt.setMinHeight(25);
+        cityTxt.setMinWidth(120); 
+        cityTxt.setFont(new Font(20));
+        cityTxt.setPrefColumnCount(12);
+        cityTxt.setStyle("-fx-background-color: #f8f8f7; -fx-border-color: gray; -fx-color: gray; -fx-border-radius: 15;");
+        cityTxt.setPromptText("Enter City name");
+        
+        positionTxt.setMinHeight(25);
+        positionTxt.setMinWidth(120); 
+        positionTxt.setFont(new Font(20));
+        positionTxt.setStyle("-fx-background-color: #f8f8f7; -fx-border-color: gray; -fx-color: gray; -fx-border-radius: 15;");
+        positionTxt.setPrefColumnCount(12);
+        positionTxt.setPromptText("Enter Position");
         return pane;      
 
     }
@@ -143,7 +224,7 @@ public class Main extends Application{
                 searchOption.show();
             });
             pane = getFullDesign();
-             scene = new Scene(pane, 600, 600);
+             scene = new Scene(pane, 600, 400);
             stage.setScene(scene);  
             stage.setTitle("Employee Details");
             stage.show();
@@ -197,10 +278,22 @@ public class Main extends Application{
             try {
                 boolean checkDone = new CheckRecordToInsert().CheckRecordToInsert();
                 if(checkDone){
-                    Employee employee = new Employee((int)Integer.parseInt(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
-                    if(EmployeeFile.WriteRecord(Main.fileName, employee,true)){
-                        ShowError.show("Success", "Record added to file","Information");
-                        Main.employeeList = EmployeeFile.ReadRecords(Main.fileName);
+                    Main.employeeList = EmployeeFile.ReadRecords(Main.fileName);
+                    boolean checkWriteable = true;
+                    for(int i = 0; i < Main.employeeList.size(); i++) {
+                        if(Main.employeeList.get(i).getID() == (int)Integer.parseInt(idTxt.getText())) {
+                            checkWriteable = false;
+                        }
+                    }
+                    if(checkWriteable) {
+                        Employee employee = new Employee((int)Integer.parseInt(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
+                        if(EmployeeFile.WriteRecord(Main.fileName, employee,true)){
+                            ShowError.show("Success", "Record added to file","Information");
+                            Main.employeeList = EmployeeFile.ReadRecords(Main.fileName);
+                        }
+                    }
+                    else {
+                        ShowError.show("Error", "Please change Id. we found already one.");
                     }
                 }                
             } catch (Exception e) {
@@ -235,7 +328,7 @@ public class Main extends Application{
             try {
                 boolean checkDone = new CheckRecordToInsert().CheckRecordToInsert();
                 if(checkDone){
-                    Employee employee = new Employee((int)Integer.getInteger(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
+                    Employee employee = new Employee((int)Integer.parseInt(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
                     if(EmployeeFile.DeleteRecord(Main.fileName, employee)){
                         Main.employeeList = EmployeeFile.ReadRecords(Main.fileName);
                     }
