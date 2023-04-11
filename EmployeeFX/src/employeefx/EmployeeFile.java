@@ -19,11 +19,10 @@ public class EmployeeFile {
     public static ArrayList<Employee> ReadRecords(String fileName) {
         
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
-        
         FileReader fileReader;
         BufferedReader bufferedReader;
         try {
-//            System.out.println(fileName);
+            
             File file = new File(fileName);
             if(!file.exists()){
                 file.createNewFile();
@@ -33,8 +32,7 @@ public class EmployeeFile {
             bufferedReader = new BufferedReader(fileReader);
             if(bufferedReader.ready()) {
                 String Line = bufferedReader.readLine();
-                
-//                System.out.println(Line);
+
                 while( Line != "" && Line != null) {
                     
                     String[] ConvertedLine = Line.split(",");
@@ -49,7 +47,6 @@ public class EmployeeFile {
         }
         catch(FileNotFoundException e) {
             ShowError.show("Error", "File Not Found. Please try again by giving another file name\n" + e.getMessage().toString());
-
         }
         catch (Exception e) {
             ShowError.show("Error", "File Not Found. Please try again by giving another file name\n" + e.getMessage().toString());

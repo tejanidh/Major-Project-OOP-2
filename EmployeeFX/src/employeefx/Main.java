@@ -7,18 +7,17 @@
  */
 
 package employeefx;
+
 import employeefx.Search.SearchOption;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -52,12 +51,9 @@ public class Main extends Application{
     private VBox nameVBox = new VBox(lblName,nameTxt);
     private VBox cityVBox = new VBox(lblCity,cityTxt);
     private VBox positionVBox = new VBox(lblPosition,positionTxt);
-    
-    
+   
     private HBox firstHBox =  new HBox(idVBox,nameVBox); 
     private HBox secondHBox =  new HBox(cityVBox,positionVBox);
-
-    
             
     private static ArrayList<Employee> employeeList = new ArrayList<Employee>();
     private final static String fileName = ".\\src\\employeefx\\Employee.dat";
@@ -67,22 +63,6 @@ public class Main extends Application{
     private HBox ActivityBox = new HBox(addBtn,updateBtn,deleteBtn,searchBtn);
     private Pane pane = new Pane();
     private Scene scene;
-
-//    private GridPane getGrid(){
-////        Pane pane = new GridPane();
-////        pane.add(lblID, 0,0);
-////        pane.add(lblName, 0,2);
-////        pane.add(lblCity, 0,3);
-////        pane.add(lblPosition, 0,4);
-////        pane.add(idTxt, 1,0);
-////        pane.add(nameTxt, 1,2);
-////        pane.add(cityTxt, 1,3);
-////        pane.add(positionTxt,1,4);
-////        pane.add(pagingBox, 1,6,2,1);
-////        pane.add(ActivityBox, 1, 5);
-//                
-////        return pane;
-//    }
     
     public Pane getFullDesign() {
         Pane pane = new Pane();
@@ -103,9 +83,16 @@ public class Main extends Application{
         pagingBox.setLayoutX(30);
         pagingBox.setLayoutY(240);
         
-        addBtn.setMinWidth(120);
-        return pane;
-//        pane.getChildren().addAll(mainLabel,firstHBox,secondHBox,,ActivityBox,pagingBox);
+        addBtn.setMinWidth(75);
+        updateBtn.setMinWidth(75);
+        searchBtn.setMinWidth(75);
+        deleteBtn.setMinWidth(75);
+        firstBtn.setMinWidth(75);
+        lastBtn.setMinWidth(75);
+        nextBtn.setMinWidth(75);
+        previousBtn.setMinWidth(75);
+        return pane;      
+
     }
     
     @Override
@@ -156,7 +143,7 @@ public class Main extends Application{
                 searchOption.show();
             });
             pane = getFullDesign();
-             scene = new Scene(pane, 400, 400);
+             scene = new Scene(pane, 600, 600);
             stage.setScene(scene);  
             stage.setTitle("Employee Details");
             stage.show();
@@ -210,29 +197,16 @@ public class Main extends Application{
             try {
                 boolean checkDone = new CheckRecordToInsert().CheckRecordToInsert();
                 if(checkDone){
-                    Employee employee = new Employee((int)Integer.getInteger(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
+                    Employee employee = new Employee((int)Integer.parseInt(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
                     if(EmployeeFile.WriteRecord(Main.fileName, employee,true)){
                         ShowError.show("Success", "Record added to file","Information");
                         Main.employeeList = EmployeeFile.ReadRecords(Main.fileName);
                     }
-                }
-//                if(!checkInteger(idTxt.getText()) ) {
-//                    throw new Exception("Please enter only integral numbers in ID field");
-//                }
-//                if(!checkString(nameTxt.getText())) {
-//                    throw new Exception("Please enter only string value in name field");
-//                }
-//                if(!checkString(cityTxt.getText())) {
-//                    throw new Exception("Please enter only string value in City field");
-//                }
-//                if(!checkString(positionTxt.getText())) {
-//                    throw new Exception("Please enter only string value in position field");
-//                }
-                
+                }                
             } catch (Exception e) {
                 ShowError.show("Error", e.getMessage().toString());
             }
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }  
     }
     
@@ -245,14 +219,12 @@ public class Main extends Application{
                 if(checkDone){
                     Employee employee = new Employee((int)Integer.parseInt(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
                     if(EmployeeFile.UpdateRecord(Main.fileName, employee)){
-//                        ShowError.show("Success", "Record Updated to file","Information");
                         Main.employeeList = EmployeeFile.ReadRecords(Main.fileName);
                     }
                 }
             } catch (Exception e) {
                 ShowError.show("Error", e.getMessage().toString());
             }
-//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }  
     }
     
@@ -265,14 +237,12 @@ public class Main extends Application{
                 if(checkDone){
                     Employee employee = new Employee((int)Integer.getInteger(idTxt.getText()),nameTxt.getText(),cityTxt.getText(),positionTxt.getText());
                     if(EmployeeFile.DeleteRecord(Main.fileName, employee)){
-//                        ShowError.show("Success", "Record Updated to file","Information");
                         Main.employeeList = EmployeeFile.ReadRecords(Main.fileName);
                     }
                 }
             } catch (Exception e) {
                 ShowError.show("Error", e.getMessage().toString());
             }
-//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }  
     }
     
@@ -292,7 +262,6 @@ public class Main extends Application{
             } catch (Exception e) {
                 ShowError.show("Error", e.getMessage().toString());
             } 
-//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody    
         } 
     }
     
@@ -312,9 +281,7 @@ public class Main extends Application{
             } catch (Exception e) {
                 ShowError.show("Error", e.getMessage().toString());
             }
-//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody    
-        }
-        
+        }      
     }
     
     public class GetNextRecord implements EventHandler<ActionEvent> {
@@ -333,9 +300,7 @@ public class Main extends Application{
             } catch (Exception e) {
                 ShowError.show("Error", e.getMessage().toString());
             }
-//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody    
-        }
-        
+        }        
     }
     
     public class GetPreviousRecord implements EventHandler<ActionEvent> {
@@ -348,10 +313,8 @@ public class Main extends Application{
                     ShowError.show("Warning", "There is no record Found","Warning");
                 }
                 else {
-//                    System.out.println("Previous " + currentIndex);
                     currentIndex = (currentIndex - 1) % Main.employeeList.size();
                     currentIndex = (currentIndex == -1) ? Main.employeeList.size() - 1 : currentIndex;
-//                    System.out.println("Previous after " + currentIndex);
                     new ShowRecord().showRecord(Main.employeeList.get(currentIndex));
                 }
             } catch (Exception e) {

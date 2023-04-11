@@ -1,8 +1,6 @@
 package employeefx.Search;
 
-
 import employeefx.Employee;
-import employeefx.Main;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,25 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author tejan
- */
 public class SearchOption extends Stage{
+    
     private Label filter = new Label("Search Here");
     private ComboBox comboBox = new ComboBox();
     private Label lblSearch = new Label("");
     private TextField txtSearch = new TextField();
     private Button searchBtn = new Button("Search");
-//    private VBox vBox = new VBox(lblSearch,txtSearch);
     private Pane pane = new Pane();
     private static ArrayList<Employee> employeeList = new ArrayList<Employee>();
     private final static String fileName = ".\\src\\employeefx\\Employee.dat";
@@ -51,13 +39,12 @@ public class SearchOption extends Stage{
     }
     
     public Scene getSearchBody() {
-        Scene scene = new Scene(pane,800,800);
+        Scene scene = new Scene(pane,600,600);
         try {
             
         filter.setLayoutX(130);
         filter.setLayoutY(10);
         
-        comboBox.getItems().add("Select any Option");     
         comboBox.getItems().add("Id");
         comboBox.getItems().add("Name");
         comboBox.getItems().add("City");
@@ -74,9 +61,7 @@ public class SearchOption extends Stage{
         
         searchedDataGridPane.setLayoutX(60);
         searchedDataGridPane.setLayoutY(90);
-        
-        
-        
+                      
         pane.getChildren().addAll(filter,comboBox,lblSearch,txtSearch,searchBtn, searchedDataGridPane);
         scene = new Scene(pane);
         System.out.println(" Lini " + scene.getStylesheets());
@@ -84,11 +69,9 @@ public class SearchOption extends Stage{
         System.out.println("Link " + scene.getStylesheets());
         searchedDataGridPane.getStyleClass().add("grid");
         filter.getStyleClass().add("font-family");
-        
-        
+      
         } catch (Exception e) {
         }
-        
         return scene;
     }
     
@@ -98,7 +81,6 @@ public class SearchOption extends Stage{
         public void handle(ActionEvent t) {
             
             String field  = (String)comboBox.getValue();
-//            System.out.println(field);
             switch(field) { 
                 case "Id":
                     lblSearch.setText("Enter Id : ");
@@ -113,9 +95,7 @@ public class SearchOption extends Stage{
                     lblSearch.setText("Enter Position : ");
                     break;
             }
-//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-       
+        }       
     }
     
     public class SearchData implements EventHandler<ActionEvent> {
@@ -124,7 +104,6 @@ public class SearchOption extends Stage{
         public void handle(ActionEvent t) {
             searchedDataGridPane.getChildren().clear();
             String field = (String)comboBox.getValue();
-//            System.out.println(field);
             ArrayList<Employee> SearchedList = new ArrayList<Employee>();
             SearchOption.employeeList = employeefx.EmployeeFile.ReadRecords(SearchOption.fileName);
             for(int i = 0; i < SearchOption.employeeList.size(); i++){
@@ -151,8 +130,7 @@ public class SearchOption extends Stage{
                     break;
                 }
             }
-            
-            
+                        
             if(SearchedList.size() > 0) {
                 searchedDataGridPane.addColumn(0, lblID); 
                 searchedDataGridPane.addColumn(1, lblName);
@@ -160,17 +138,12 @@ public class SearchOption extends Stage{
                 searchedDataGridPane.addColumn(3, lblPosition);
                 
                 for(int i = 0; i < SearchedList.size(); i++) {
-                    searchedDataGridPane.add(new Label(String.valueOf(SearchedList.get(i).getID())),0, i + 1);
-                   
+                    searchedDataGridPane.add(new Label(String.valueOf(SearchedList.get(i).getID())),0, i + 1);                
                     searchedDataGridPane.add(new Label(String.valueOf(SearchedList.get(i).getName())), 1, i + 1);
                     searchedDataGridPane.add(new Label(String.valueOf(SearchedList.get(i).getCity())), 2, i + 1);
-                    searchedDataGridPane.add(new Label(String.valueOf(SearchedList.get(i).getPosition())), 3, i + 1);
-                    
+                    searchedDataGridPane.add(new Label(String.valueOf(SearchedList.get(i).getPosition())), 3, i + 1);   
                 }
-
             }
-//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-        
+        }        
     }  
 }
